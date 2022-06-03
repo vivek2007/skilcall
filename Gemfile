@@ -23,7 +23,7 @@ gem 'haml', '~> 5.0.4'
 gem 'sass', '~> 3.4.24'
 gem 'rack-attack', '~> 6.0.0'
 gem 'rest-client', '~> 2.0.2'
-
+gem 'daemons'
 gem 'paperclip', '~> 6.0.0'
 gem 'delayed_paperclip', '~> 3.0.1'
 

@@ -390,6 +390,7 @@ default: &default_settings
   # marketplace OS installations the database doesn't bring any benifits. That's why
   # the static version is used instead of database in OS installations.
   clp_static_enabled: false
+  show_landing_page_admin: true
 
   # Landing page is cached heavily.
   #
