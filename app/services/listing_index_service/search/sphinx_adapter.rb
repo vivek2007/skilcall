@@ -78,6 +78,12 @@ module ListingIndexService::Search
           custom_checkbox_field_options: (grouped_by_operator[:and] || []).flat_map { |v| v[:value] }
         }
 
+        if search[:latitude].present? && search[:longitude].present?
+          @coordinates = [to_radians(search[:latitude]), to_radians(search[:longitude])]
+          limit = search[:distance_max].present? ? (search[:distance_max] * 1000) : 5_000
+          with.merge!(geodist: 0.0..limit)
+        end
+
         models = Listing.search(
           Riddle::Query.escape(search[:keywords] || ""),
           sql: {
@@ -104,6 +110,10 @@ module ListingIndexService::Search
     def search_out_of_bounds?(per_page, page)
       pages = (SPHINX_MAX_MATCHES.to_f / per_page.to_f)
       page > pages.ceil
+    end
+
+    def to_radians(degrees)
+      degrees * (Math::PI/180)
     end
 
     def selection_groups(groups)
