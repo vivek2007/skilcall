@@ -390,7 +390,6 @@ default: &default_settings
   # marketplace OS installations the database doesn't bring any benifits. That's why
   # the static version is used instead of database in OS installations.
   clp_static_enabled: false
-  show_landing_page_admin: true
 
   # Landing page is cached heavily.
   #
@@ -403,7 +402,7 @@ default: &default_settings
   clp_cache_time: 900
 
   # Display mention of custom landing page in admin panel
-  show_landing_page_admin: false
+  show_landing_page_admin: true
   custom_landing_page_marketing_site_url: "https://www.example.com/landingpage/"
 
   #######

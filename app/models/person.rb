@@ -488,6 +488,33 @@ class Person < ApplicationRecord
     community.can_accept_user_based_on_email?(self)
   end
 
+  def is_doctor?
+    get_custom_field_value('User type') == 'Doctor'
+  end
+
+  def is_patient?
+    get_custom_field_value('User type') == 'Patient'
+  end
+
+  def get_custom_field_value(name)
+    custom_field = CustomField.find{|c| c.name == name}
+    return unless custom_field
+    answer = answer_for(custom_field)
+    return unless answer
+    case answer.type
+    when "TextFieldValue"
+      answer.text_value
+    when "NumericFieldValue"
+      answer.numeric_value
+    when "DropdownFieldValue"
+      answer.selected_options.first&.title
+    end
+  end
+
+  def answer_for(custom_field)
+    custom_field_values.find { |value| value.custom_field_id == custom_field.id }
+  end
+
   def self.find_by_email_address_and_community_id(email_address, community_id)
     Maybe(
       Email.find_by_address_and_community_id(email_address, community_id)

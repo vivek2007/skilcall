@@ -1,21 +1,41 @@
 <% bg_styles = background_style_modifiers(s, second_wo_background) %>
 <% content_for :info_css do %>
   <%= render 'landing_page/inline_css', s: s, section_id: section_id %>
+  .info__service_provider_and_patient{
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
 <% end %>
-
-<section id="<%= section_id %>" class="info__section--<%= bg_styles[:section_style_modifier] %>" style="<%= bg_styles[:background_image_style] %> <%= bg_styles[:background_color_style] %>">
+<section id="<%= section_id %>" class="<%=section_id.include?('service_provider_and_patient') ? 'info__service_provider_and_patient' : ''%>  info__section--<%= bg_styles[:section_style_modifier] %>" style="<%= bg_styles[:background_image_style] %> <%= bg_styles[:background_color_style] %>">
   <div class="info__content--<%= bg_styles[:variation_modifier] %>">
-    <h1 class="info__title--<%= bg_styles[:variation_modifier] %>"><%= s["title"] %></h1>
+    <%unless section_id.include?('service_provider_and_patient')%>
+      <h1 class="info__title--<%= bg_styles[:variation_modifier] %>"><%= s["title"] %></h1>
+    <% end %>
     <% case s["variation"] %>
     <% when "single_column" %>
 
       <div class="info__paragraph--markdown">
         <%= render_markdown_array(s["paragraph"]) %>
       </div>
-
-      <% if s["button_title"] %>
-        <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= s["button_path"]["value"] %>"><%= s["button_title"] %></a>
-      <% end %>
+      <% if section_id.include?('service_provider_and_patient') %>
+        <%
+          provider_url =  if @user.present?
+                             "/en/#{@user.username}"
+                          else
+                            '/en/login'
+                          end
+        %>
+        <% if s["button_title"] %>
+          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= provider_url %>">Service provider</a>
+        <% end %>
+        <% if s["button_title"] %>
+          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="/s">Patient</a>
+        <% end %>
+      <% else %>
+        <% if s["button_title"] %>
+          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= s["button_path"]["value"] %>"><%= s["button_title"] %></a>
+        <% end %>
+      <% end %>  
 
     <% when "multi_column" %>
 

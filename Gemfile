@@ -118,6 +118,7 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'factory_girl_rails', '~> 4.8.0'
+  gem 'rb-fchange', :require => false
 end
 
 group :development, :staging do

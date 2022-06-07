@@ -90,6 +90,7 @@ module ListingIndexService::Search
             include: included_models
           },
           page: search[:page],
+          geo: @coordinates,
           per_page: search[:per_page],
           star: true,
           with: with,

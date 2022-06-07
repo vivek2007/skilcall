@@ -60,9 +60,9 @@ class HomepageController < ApplicationController
     includes =
       case @view_type
       when "grid"
-        [:author, :listing_images]
+        [:author, :listing_images, :location]
       when "list"
-        [:author, :listing_images, :num_of_reviews]
+        [:author, :listing_images, :num_of_reviews, :location]
       when "map"
         [:location]
       else
