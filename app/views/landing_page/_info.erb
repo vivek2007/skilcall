@@ -6,6 +6,13 @@
     padding-bottom: 20px !important;
   }
 <% end %>
+<% content_for :javascript do %>
+  <script>
+    function myPatient(){
+      document.getElementById('hero__hero__0__search-form').scrollIntoView()
+    }
+  </script>
+<%end%>
 <section id="<%= section_id %>" class="<%=section_id.include?('service_provider_and_patient') ? 'info__service_provider_and_patient' : ''%>  info__section--<%= bg_styles[:section_style_modifier] %>" style="<%= bg_styles[:background_image_style] %> <%= bg_styles[:background_color_style] %>">
   <div class="info__content--<%= bg_styles[:variation_modifier] %>">
     <%unless section_id.include?('service_provider_and_patient')%>
@@ -26,10 +33,10 @@
                           end
         %>
         <% if s["button_title"] %>
-          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= provider_url %>">Service provider</a>
+          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= provider_url %>">I am a service provider</a>
         <% end %>
         <% if s["button_title"] %>
-          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="/s">Patient</a>
+          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="javascript:void(0);" onclick="myPatient()">I am a patient</a>
         <% end %>
       <% else %>
         <% if s["button_title"] %>
