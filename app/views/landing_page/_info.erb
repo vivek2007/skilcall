@@ -2,14 +2,15 @@
 <% content_for :info_css do %>
   <%= render 'landing_page/inline_css', s: s, section_id: section_id %>
   .info__service_provider_and_patient{
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
+    padding-top: 200px !important;
   }
 <% end %>
 <% content_for :javascript do %>
   <script>
     function myPatient(){
-      document.getElementById('hero__hero__0__search-form').scrollIntoView()
+      document.getElementsByClassName('info__service_provider_and_patient')[0].style.display = 'none'
+      // document.getElementById('hero__hero__0__search-form').scrollIntoView()
+      document.getElementsByClassName('hero_section')[0].style.display = 'block'
     }
   </script>
 <%end%>
@@ -27,7 +28,7 @@
       <% if section_id.include?('service_provider_and_patient') %>
         <%
           provider_url =  if @user.present?
-                             "/en/#{@user.username}"
+                             "/en/#{@user.username}/settings"
                           else
                             '/en/login'
                           end
@@ -36,7 +37,9 @@
           <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="<%= provider_url %>">I am a service provider</a>
         <% end %>
         <% if s["button_title"] %>
-          <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="javascript:void(0);" onclick="myPatient()">I am a patient</a>
+          <span class="patient-btn">
+            <a class="info__button<%= bg_styles[:button_modifier] %> <%= section_id %>__info__button<%= bg_styles[:button_modifier] %>" href="javascript:void(0);" onclick="myPatient()">I am a patient</a>
+          </span>
         <% end %>
       <% else %>
         <% if s["button_title"] %>

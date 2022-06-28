@@ -41,10 +41,6 @@ $tablet--hero: "(min-width: 480px) and (max-width: 767px)";
   @media #{$mobile-landscape}, #{$tablet} {
     max-width: 561px;
   }
-
-  @media #{$desktop} {
-    max-width: 871px;
-  }
 }
 
 
